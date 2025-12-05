@@ -1,0 +1,84 @@
+server:
+    port: 8081
+
+spring:
+    application:
+        name: rag-backend
+
+rag:
+    llm:
+        # 默认模型：建议使用 qwen-plus (速度快、便宜、效果好) 或 deepseek-chat
+        default-model: qwen-plus
+        
+        models:
+            # ==========================================
+            # 1. Alibaba Cloud Qwen (通义千问)
+            # 官网: https://help.aliyun.com/zh/model-studio/getting-started/models
+            # ==========================================
+            - id: qwen-max
+              name: "Qwen Max (旗舰版)"
+              provider: qwen
+                # 通义千问能力最强的模型，对标 GPT-4
+              features: [streaming, tool_call, vision,deep_thinking]
+            
+            - id: qwen-plus
+              name: "Qwen Plus (均衡版)"
+              provider: qwen
+                # 速度和效果的平衡点，适合绝大多数 RAG 场景
+              features: [streaming, tool_call, vision,deep_thinking]
+            
+            - id: qwq-32b-preview
+              name: "Qwen QwQ (推理模型)"
+              provider: qwen
+                # ⚠️ 阿里唯一的 API 推理模型 ID，输出含 <think> 标签
+              features: [streaming, deep_thinking]
+            
+            # ==========================================
+            # 2. DeepSeek (深度求索)
+            # 官网: https://api-docs.deepseek.com/
+            # ==========================================
+            - id: deepseek-chat
+              name: "DeepSeek V3"
+              provider: deepseek
+                # 目前最强的开源通用模型，性价比极高
+              features: [streaming, tool_call]
+            
+            - id: deepseek-reasoner
+              name: "DeepSeek R1"
+              provider: deepseek
+                # ⚠️ 必须用这个 ID 才能触发 CoT 思考链
+              features: [streaming, deep_thinking]
+            
+            # ==========================================
+            # 3. OpenAI
+            # ==========================================
+            - id: gpt-4o
+              name: "GPT-4 Omni"
+              provider: openai
+              features: [streaming, vision, tool_call]
+            
+            - id: o1-preview
+              name: "OpenAI o1 Preview"
+              provider: openai
+                # ⚠️ o1 系列目前不支持 system role，且通常不支持 streaming (部分新版支持)
+              features: [deep_thinking]
+            
+            - id: o1-mini
+              name: "OpenAI o1 Mini"
+              provider: openai
+                # 针对代码/数学优化的快速推理模型
+              features: [deep_thinking]
+            
+            # ==========================================
+            # 4. Google Gemini
+            # ==========================================
+            - id: gemini-1.5-pro
+              name: "Gemini 1.5 Pro"
+              provider: google
+              features: [streaming, vision, tool_call]
+            
+            - id: gemini-2.0-flash-thinking-exp
+              name: "Gemini 2.0 Flash Thinking"
+              provider: google
+                # Google 最新的带思考过程的模型 ID
+              features: [streaming, deep_thinking]
