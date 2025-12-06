@@ -46,7 +46,7 @@ public class RagController {
         // 1. 转换请求
         LlmCompletionRequest llmRequest = convertToLlmRequest(request, apiKey);
 
-        log.info("收到普通对话请求 - 模型: {}, 深度思考: {}", request.getModel(), request.getEnableDeepThinking());
+        log.info("收到普通对话请求 - 模型: {}, 深度思考: {},提问：{}", request.getModel(), request.getEnableDeepThinking(),request.getQuestion());
 
         // 2. 调用 Service
         RagResponse<Object> result = llmService.chat(llmRequest);
@@ -63,7 +63,7 @@ public class RagController {
             @RequestBody ChatRequest request,
             @RequestHeader(value = "X-API-KEY", required = false) String apiKey
     ) {
-        log.info("收到流式对话请求 (SSE) - 模型: {}, 深度思考: {}", request.getModel(), request.getEnableDeepThinking());
+        log.info("收到流式对话请求 (SSE) - 模型: {}, 深度思考: {},提问：{}", request.getModel(), request.getEnableDeepThinking(),request.getQuestion());
 
         // 1. 创建 SseEmitter (0L 表示永不超时，防止 AI 回答时间过长导致连接断开)
         SseEmitter emitter = new SseEmitter(0L);
