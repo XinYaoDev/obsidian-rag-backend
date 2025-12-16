@@ -34,6 +34,11 @@ public class ChatRequest extends BaseRequest {
     private String model;
 
     /**
+     * 模型服务地址
+     */
+    private String baseUrl;
+
+    /**
      * 是否开启深度思考
      * (推荐赋默认值，防止空指针)
      */

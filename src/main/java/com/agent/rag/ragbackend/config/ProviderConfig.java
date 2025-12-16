@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum ProviderConfig {
 
     // 阿里云通义千问 (兼容版接口)
-    ALIYUN("aliyun", "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-turbo"),
+    ALIYUN("aliyun", "https://dashscope.aliyuncs.com/compatible-mode/v1", "qwen-plus"),
 
     // DeepSeek
     DEEPSEEK("deepseek", "https://api.deepseek.com", "deepseek-coder"),

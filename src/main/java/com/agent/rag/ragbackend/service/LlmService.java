@@ -47,7 +47,9 @@ public class LlmService {
         // (保持原有的 chat 代码逻辑不变)
         // 为了节省篇幅，这里省略 chat 方法的具体实现，仅展示修改的核心部分
         ProviderConfig config = ProviderConfig.fromCode(request.getProvider());
-        String apiUrl = config.getBaseUrl() + "/chat/completions";
+        // 优先使用前端传入的baseUrl，如果没有则使用默认的
+        String baseUrl = request.getBaseUrl() != null ? request.getBaseUrl() : config.getBaseUrl();
+        String apiUrl = baseUrl + "/chat/completions";
         OpenAiRequest requestBody = buildOpenAiRequest(request, config, false);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -73,7 +75,9 @@ public class LlmService {
      */
     public void streamChat(LlmCompletionRequest request, SseEmitter emitter) {
         ProviderConfig config = ProviderConfig.fromCode(request.getProvider());
-        String apiUrl = config.getBaseUrl() + "/chat/completions";
+        // 优先使用前端传入的baseUrl，如果没有则使用默认的
+        String baseUrl = request.getBaseUrl() != null ? request.getBaseUrl() : config.getBaseUrl();
+        String apiUrl = baseUrl + "/chat/completions";
 
         OpenAiRequest requestBody = buildOpenAiRequest(request, config, true);
         log.info("🚀 [StreamStart] 开始发起流式请求: {}", apiUrl);

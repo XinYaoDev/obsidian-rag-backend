@@ -28,6 +28,11 @@ public class LlmCompletionRequest implements Serializable {
     private String model;
 
     /**
+     * 模型服务地址
+     */
+    private String baseUrl;
+
+    /**
      * API Key
      * ⚠️ 安全规约：敏感信息禁止在 toString 中打印
      */

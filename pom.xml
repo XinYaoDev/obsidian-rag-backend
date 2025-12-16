@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.agent.rag</groupId>
     <artifactId>rag-backend</artifactId>
@@ -11,6 +11,8 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <jib.allowInsecureRegistries>true</jib.allowInsecureRegistries>
+        <jib.sendCredentialsOverHttp>true</jib.sendCredentialsOverHttp>
         <spring-boot.version>3.0.2</spring-boot.version>
     </properties>
     <dependencies>
@@ -65,14 +67,14 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.agent.rag.ragbackend.RagBackendApplication</mainClass>
-                    <skip>true</skip>
-                </configuration>
+                    <skip>false</skip> </configuration>
                 <executions>
                     <execution>
                         <id>repackage</id>
@@ -81,6 +83,28 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.1</version>
+                <configuration>
+                    <from>
+                        <image>swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/library/openjdk:17-jdk-slim</image>
+                    </from>
+                    <to>
+                        <image>47.100.206.33:5000/rag-backend:latest</image>
+                    </to>
+                    <container>
+                        <ports>
+                            <port>8085</port>
+                        </ports>
+                    </container>
+
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
+
+                </configuration>
             </plugin>
         </plugins>
     </build>

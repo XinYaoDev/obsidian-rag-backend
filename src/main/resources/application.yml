@@ -1,5 +1,5 @@
 server:
-    port: 8081
+    port: 8085
 
 spring:
     application:
@@ -7,7 +7,7 @@ spring:
 
 rag:
     llm:
-        # 默认模型：建议使用 qwen-plus (速度快、便宜、效果好) 或 deepseek-chat
+        # 默认模型：建议使用 qwen-plus (速度快、便宜、效果好) 或 deepseek-chat1
         default-model: qwen-plus
         
         models:
