@@ -55,6 +55,12 @@ public class LlmCompletionRequest implements Serializable {
     @Builder.Default
     private Boolean enableDeepThinking = false;
 
+    /**
+     * 会话ID
+     */
+    private String conversationId;
+
+
     // 如果后续有 temperature, topP 等参数，直接加在这里，无需改接口
     // private Double temperature;
 
